@@ -1,0 +1,6 @@
+{
+  "name": "SocietySync",
+  "description": "Residential community management platform for apartment societies, billing, complaints, visitors, amenities, and AI-assisted operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
