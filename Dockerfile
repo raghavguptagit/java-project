@@ -1,5 +1,5 @@
-# Multi-stage production build for SocietySync
-FROM node:22-alpine AS builder
+# Multi-stage production build for SocietySync using Debian glibc
+FROM node:22-slim AS builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 RUN npm run build
 
 # Production runtime container
-FROM node:22-alpine AS runner
+FROM node:22-slim AS runner
 
 WORKDIR /app
 

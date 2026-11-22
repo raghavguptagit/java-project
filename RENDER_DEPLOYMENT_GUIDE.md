@@ -138,6 +138,10 @@ git push origin main
 - **कारण:** `esbuild` और `vite` के बीच वर्शन कॉन्फ्लिक्ट।
 - **समाधान:** रिपोजिटरी में `.npmrc` फ़ाइल (जिसमें `legacy-peer-deps=true` है) और `esbuild@^0.28.0` पहले से कॉन्फ़िगर कर दिया गया है। अगर आप मैन्युअल कमांड चला रहे हैं तो हमेशा `npm install --legacy-peer-deps` का उपयोग करें।
 
+### Q: `Cannot find module '@rolldown/binding-linux-x64-musl'` (Docker Build Error)
+- **कारण:** Alpine Linux `musl` C library का उपयोग करता है, जबकि `rolldown` (Vite 8 का बंडलर) glibc बाइनरी खोजता है।
+- **समाधान:** `Dockerfile` में बेस इमेज को `node:22-alpine` से बदलकर मानक **`node:22-slim` (Debian glibc)** कर दिया गया है, जो सभी native bindings को बिना किसी एरर के सपोर्ट करता है।
+
 ### Q: Render पर डेटा रीस्टार्ट होने पर रीसेट हो जाता है?
 - **कारण:** Render Free Tier पर स्टोरेज एफेमरल (अस्थायी) होता है।
 - **समाधान:** परमानेंट डेटा के लिए Render Dashboard में 1 GB Persistent Disk जोड़ें (Mount Path: `/var/data`) और `DATA_DIR=/var/data` सेट करें।
