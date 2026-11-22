@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import path from 'node:path';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
@@ -1166,8 +1167,16 @@ async function startServer() {
 
   app.use('/api/v1', api);
 
-  if (process.env.NODE_ENV === 'production') {
-    const distPath = path.resolve(process.cwd(), 'dist');
+  const isRunningBuiltServer = Boolean(process.argv[1]?.includes('dist'));
+  const isProduction =
+    process.env.NODE_ENV === 'production' ||
+    process.env.RENDER === 'true' ||
+    isRunningBuiltServer;
+
+  if (isProduction) {
+    const distPath = fs.existsSync(path.resolve(process.cwd(), 'dist', 'index.html'))
+      ? path.resolve(process.cwd(), 'dist')
+      : path.resolve(process.cwd());
     app.use(express.static(distPath));
     app.get('*', (_req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));

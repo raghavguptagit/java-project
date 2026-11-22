@@ -46,7 +46,9 @@ export interface DatabaseState {
   knowledgeDocs: KnowledgeDocument[];
 }
 
-const DATA_DIR = path.resolve(process.cwd(), '.data');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(process.cwd(), '.data');
 const DATA_FILE = path.join(DATA_DIR, 'societysync-db.json');
 
 export function hashPassword(password: string): string {

@@ -8,7 +8,7 @@ export interface AiReply {
   disclaimer: string;
 }
 
-const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-4-hydrogen';
+const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
 function retrieveRelevantDocs(query: string, docs: KnowledgeDocument[]): KnowledgeDocument[] {
   const approved = docs.filter((d) => d.approved);
