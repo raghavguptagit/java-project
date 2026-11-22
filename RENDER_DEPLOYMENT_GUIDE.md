@@ -129,3 +129,15 @@ git push origin main
 - [ ] **Admin Login:** Admin से लॉगिन करें और Dashboard KPI कार्ड्स, चार्ट्स, फ्लैट्स लिस्ट देखें।
 - [ ] **Billing & Payment:** Bills & Payments टैब में जाकर किसी बिल की रसीद या स्टेटस चेक करें।
 - [ ] **AI Assistant:** AI Assistant टैब में जाकर कोई सवाल पूछें (उदा. "What are the clubhouse rules?").
+
+---
+
+## 🛠️ सामान्य समस्याएं और समाधान (Troubleshooting)
+
+### Q: `npm error ERESOLVE could not resolve peerOptional esbuild`
+- **कारण:** `esbuild` और `vite` के बीच वर्शन कॉन्फ्लिक्ट।
+- **समाधान:** रिपोजिटरी में `.npmrc` फ़ाइल (जिसमें `legacy-peer-deps=true` है) और `esbuild@^0.28.0` पहले से कॉन्फ़िगर कर दिया गया है। अगर आप मैन्युअल कमांड चला रहे हैं तो हमेशा `npm install --legacy-peer-deps` का उपयोग करें।
+
+### Q: Render पर डेटा रीस्टार्ट होने पर रीसेट हो जाता है?
+- **कारण:** Render Free Tier पर स्टोरेज एफेमरल (अस्थायी) होता है।
+- **समाधान:** परमानेंट डेटा के लिए Render Dashboard में 1 GB Persistent Disk जोड़ें (Mount Path: `/var/data`) और `DATA_DIR=/var/data` सेट करें।

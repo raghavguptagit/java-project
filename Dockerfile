@@ -3,9 +3,9 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependency manifests and install dependencies
-COPY package*.json ./
-RUN npm install
+# Copy dependency manifests and npm configuration
+COPY package*.json .npmrc* ./
+RUN npm install --legacy-peer-deps
 
 # Copy source files and build production assets
 COPY . .
@@ -20,8 +20,8 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 # Install production dependencies only
-COPY package*.json ./
-RUN npm install --omit=dev
+COPY package*.json .npmrc* ./
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy compiled bundles and baseline data
 COPY --from=builder /app/dist ./dist
